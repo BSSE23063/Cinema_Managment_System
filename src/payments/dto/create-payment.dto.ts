@@ -10,8 +10,13 @@ import {
 } from 'class-validator';
 
 export class CreatePaymentDto {
+
+  @IsOptional()
   @IsInt()
-  booking_id: number;
+  booking_id?: number;
+
+  @IsInt()
+  amount?:number;
 
  
 

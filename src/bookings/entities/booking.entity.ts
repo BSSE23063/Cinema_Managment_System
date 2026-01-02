@@ -15,7 +15,6 @@ import { Payment } from 'src/payments/entities/payment.entity';
 
 @Entity()
 export class Booking {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,19 +27,22 @@ export class Booking {
   @Column()
   ticket_quantity: number;
 
-  @ManyToOne(() => User, (user) => user.bookings, { eager: true })
+  @ManyToOne(() => User, (user) => user.bookings, { eager: true,onDelete:'CASCADE',cascade:true })
   @JoinColumn({
     name: 'user_id',
+    
   })
   user: User;
 
-  @ManyToOne(() => Movie, (movie) => movie.bookings, { eager: true })
-  @JoinColumn({
-    name: 'movie_id',
+  @ManyToOne(() => Movie, (movie) => movie.bookings, {
+    eager: true,
+    onDelete: 'CASCADE', // ensures child row is deleted if parent movie is deleted
+    onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'movie_id' })
   movie: Movie;
 
-  @ManyToOne(() => Hall, (hall) => hall.bookings, { eager: true })
+  @ManyToOne(() => Hall, (hall) => hall.bookings, {eager: true,onDelete:'CASCADE',cascade:true })
   @JoinColumn({
     name: 'hall_id',
   })

@@ -3,10 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 import { Booking } from 'src/bookings/entities/booking.entity';
+import { Show } from 'src/shows/entities/show.entity'; // assuming you have a Show entity
 
 @Entity()
 export class Hall {
@@ -19,12 +18,14 @@ export class Hall {
   @Column({ type: 'varchar', length: 50 })
   category: string;
 
-  @Column({ type: 'varchar', length: 10 })
-  seat_no: string;
-
   @Column()
   price: number;
 
+  // ✅ One hall can have many bookings
   @OneToMany(() => Booking, (booking) => booking.hall)
   bookings: Booking[];
+
+  // ✅ One hall can have many shows
+  @OneToMany(() => Show, (show) => show.hall, { cascade: true })
+  shows: Show[];
 }

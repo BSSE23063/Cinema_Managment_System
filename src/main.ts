@@ -1,8 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  
+  // Enable CORS for frontend
+  app.enableCors({
+    origin: 'http://localhost:5173', // Your Vite frontend URL
+    credentials: true,
+  });
+
+  // Serve static files from uploads directory
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+  });
+
+  await app.listen(3000);
+  console.log('Application is running on: http://localhost:3000');
+  console.log('Static files served from: http://localhost:3000/uploads/');
 }
 bootstrap();

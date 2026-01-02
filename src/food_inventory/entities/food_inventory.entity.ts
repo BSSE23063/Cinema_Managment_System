@@ -16,6 +16,6 @@ export class FoodInventory {
   price: number;
 
   
-  @ManyToMany(() => FoodOrder, (order) => order.foodItems)
+  @ManyToMany(() => FoodOrder, (order) => order.foodItems, { onDelete: 'CASCADE' })
   orders: FoodOrder[];
 }

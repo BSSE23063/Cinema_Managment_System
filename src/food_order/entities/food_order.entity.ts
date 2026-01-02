@@ -11,6 +11,7 @@ import {
 import { FoodInventory } from 'src/food_inventory/entities/food_inventory.entity';
 import { Booking } from 'src/bookings/entities/booking.entity';
 import { Payment } from 'src/payments/entities/payment.entity';
+import { ArrayMinSize, IsArray } from 'class-validator';
 
 @Entity('food_orders')
 export class FoodOrder {
@@ -40,4 +41,11 @@ export class FoodOrder {
 
   @OneToOne(() => Payment, (payment) => payment.foodOrder)
   payment: Payment;
+
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @Column('int',{array:true})
+  order_quantity: number[];
+  
 }

@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, Length, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty, Length, IsInt, Min } from 'class-validator';
 
 export class CreateHallDto {
   @IsString()
@@ -11,12 +11,8 @@ export class CreateHallDto {
   @Length(2, 50)
   category: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @Length(1, 10)
-  seat_no: string;
-
   @IsInt()
   @IsNotEmpty()
+  @Min(0)
   price: number;
 }

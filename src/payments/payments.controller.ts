@@ -8,31 +8,31 @@ import { Roles } from 'src/auth/roles.decorators';
 
 
 @UseGuards(JwtAuthGuard, RoleGuard)
-@Roles('admin')
+
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
-
+  @Roles('admin','customer')
   @Post()
   create(@Body() createPaymentDto: CreatePaymentDto) {
     return this.paymentsService.create(createPaymentDto);
   }
-
+  @Roles('admin')
   @Get()
   findAll() {
     return this.paymentsService.findAll();
   }
-
+  @Roles('admin')
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.paymentsService.findOne(+id);
   }
-
+  @Roles('admin')
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePaymentDto: UpdatePaymentDto) {
     return this.paymentsService.update(+id, updatePaymentDto);
   }
-
+  @Roles('admin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.paymentsService.remove(+id);

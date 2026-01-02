@@ -69,4 +69,9 @@ export class RolesService {
       throw new NotFoundException(`Role with ID ${id} not found`);
     }
   }
+
+  async findOneByName(role: string) {
+  return await this.roleRepository.findOne({ where: { role } });
+}
+
 }

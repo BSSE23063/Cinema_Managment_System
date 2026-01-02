@@ -27,7 +27,10 @@ export class AuthController {
       token: tkn,
       password: user.password,
       role: user.role,
+      name:user.name,
+      id:user.id
     };
+    console.log(obj+"check");
     
     return obj;
   }

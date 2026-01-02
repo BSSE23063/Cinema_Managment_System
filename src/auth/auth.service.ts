@@ -26,7 +26,7 @@ export class AuthService {
     if(user){
       
       console.log(user.role);
-    return { password: user.password, name: user.name, role:user.role };
+    return { password: user.password, name: user.name, role:user.role ,id:user.id };
     // return user;
     }
 
@@ -34,6 +34,7 @@ export class AuthService {
 }
 
 async login(user: any) {
+  console.log(user.role);
     console.log('Login Called with User:', user);
     const payload = { name: user.name, password: user.password, role:user.role };
     const token = this.jwtService.sign(payload);

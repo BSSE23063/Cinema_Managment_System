@@ -45,13 +45,18 @@ const authHeader = request.headers.authorization;
 const { user } = context.switchToHttp().getRequest();
 
 if (!user || !user.role) {
+  console.log(user.role+"check");
+  console.log(user.value+"check");
+
   throw new UnauthorizedException('User or role missing');
 }
-console.log(requiredRoles);
-console.log(user.role.role);
+console.log("1"+requiredRoles);
 
-if(requiredRoles.includes(user.role.role)){
-    return true;
+
+
+console.log("User Role:", user.role); // "admin"
+if (requiredRoles.includes(user.role)) {
+  return true;
 }
 throw new UnauthorizedException('You do not have permission');
 

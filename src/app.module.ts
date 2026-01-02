@@ -24,6 +24,9 @@ import { Role } from './roles/entities/role.entity';
 import { AuthModule } from './auth/auth.module';
 import { BlacklistModule } from './blacklist/blacklist.module';
 import { Blacklist } from './blacklist/entities/blacklist.entity';
+import { ShowsModule } from './shows/shows.module';
+import { Show } from './shows/entities/show.entity';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -42,7 +45,14 @@ import { Blacklist } from './blacklist/entities/blacklist.entity';
         password: configService.get<string>('DB_PASSWORD')?.toString(),
         database: configService.get('DB_DATABASE'),
         synchronize: configService.get<boolean>('DB_SYNC'),
-         
+        // dropSchema: true,
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
+
         entities: [
           User,
           Booking,
@@ -52,7 +62,8 @@ import { Blacklist } from './blacklist/entities/blacklist.entity';
           Role,
           FoodInventory,
           FoodOrder,
-          Blacklist
+          Blacklist,
+          Show,
         ],
       }),
     }),
@@ -67,6 +78,8 @@ import { Blacklist } from './blacklist/entities/blacklist.entity';
     RolesModule,
     AuthModule,
     BlacklistModule,
+    ShowsModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
