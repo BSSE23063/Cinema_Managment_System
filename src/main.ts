@@ -8,8 +8,7 @@ async function bootstrap() {
   
   // Enable CORS for frontend
   app.enableCors({
-    origin: 'http://localhost:5173', // Your Vite frontend URL
-    credentials: true,
+    
   });
 
   // Serve static files from uploads directory
